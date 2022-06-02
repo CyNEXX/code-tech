@@ -1,7 +1,7 @@
 /* import { ArticleCategories } from './models/ArticleCategories'; */
 
 interface BasicArticle {
-    _id: number;
+    _id?: string;
     title: string;
     shortDescription: string,
     longDescription?: string,

@@ -56,10 +56,10 @@ export const Header: React.FC<{}> = () => {
                 <nav>
                     <UlStyle>
                         <li><NavLink to="/" className={'active-nav-link'}>home</NavLink></li>
-                        <li><NavLink to="codes" className={'active-nav-link'}>codes{'<>'}</NavLink></li>
-                        <li><NavLink to="news" className={'active-nav-link'}>tech news</NavLink></li>
-                        <li><NavLink to="about" className={'active-nav-link'}>about</NavLink></li>
-                        <li><NavLink to="contact" className={'active-nav-link'}>contact</NavLink></li>
+                        <li><NavLink to="/codes" className={'active-nav-link'}>codes{'<>'}</NavLink></li>
+                        <li><NavLink to="/news" className={'active-nav-link'}>tech news</NavLink></li>
+                        <li><NavLink to="/about" className={'active-nav-link'}>about</NavLink></li>
+                        <li><NavLink to="/contact" className={'active-nav-link'}>contact</NavLink></li>
                     </UlStyle>
                 </nav>
             </HeaderContentStyle>

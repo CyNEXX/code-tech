@@ -1,4 +1,9 @@
 import Server from './serverModel/serverModel';
 
-const server = new Server();
-server.listen();
+const start = async () => {
+    const server = new Server();
+
+    server.listen();
+};
+
+start();

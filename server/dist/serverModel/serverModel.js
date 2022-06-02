@@ -7,13 +7,15 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const path_1 = __importDefault(require("path"));
 const articles_1 = __importDefault(require("../routes/articles"));
+const database_service_1 = require("../services/database.service");
 const DEV_PORT = 5000;
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
         this.port = /* process.env.PORT ||  */ DEV_PORT;
+        ;
         this.middlewares();
-        this.routes();
+        (0, database_service_1.connectToDatabase)().then(() => this.routes());
     }
     middlewares() {
         this.app.use((0, cors_1.default)());

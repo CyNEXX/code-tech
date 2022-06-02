@@ -18,9 +18,9 @@ const App: React.FC<{}> = () => {
         <Header />
         <Routes>
           <Route path="/" element={<ArticleListPage />} />
-          <Route path="/news" element={<ArticleListPage />} />
-          <Route path="/codes" element={<ArticleListPage />} />
-          <Route path="/article/:id" element={<ArticlePage />} />
+          <Route path="news" element={<ArticleListPage />} />
+          <Route path="codes" element={<ArticleListPage />} />
+          <Route path="article/:id" element={<ArticlePage />} />
           <Route element={<ArticleListPage />} />
         </Routes>
         <Footer textData={['CyNEXX 2022']} />

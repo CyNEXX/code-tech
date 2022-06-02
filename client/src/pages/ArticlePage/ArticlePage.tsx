@@ -12,19 +12,25 @@ export const ArticlePage: React.FC<{}> = (props) => {
 
     const { id } = useParams();
 
+    const [currentID, setCurrentID] = useState<string | undefined>('');
+
     useEffect(() => {
+        console.log('--> ', id + ' VS ', currentID!);
         setWrappedElement(null);
-        getArticleFromAPI(+id!)
+        if (id != currentID) {
+            setCurrentID(id);
+            getArticleFromAPI(id!)
                 .then(article => {
                     if (article != null) {
                         if (article._id != null) {
                             setWrappedElement(<ArticleView article={article} />);
+
                         }
                     }
                 })
                 .catch(e => { console.log(e) });
-
-    }, [id]);
+        }
+    }, [/* id */]);
 
     return (
         <>

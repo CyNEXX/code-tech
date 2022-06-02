@@ -7,7 +7,7 @@ const initialArticles = [
         shortDescription: "Webb has journeyed a million miles/1.5 million kilometers from Earth to what’s known as the second Lagrange point (L2). This is a very important position in space relative to Earth.",
         longDescription: "",
         photoURL: "../images/james_webb_telescope.jpg",
-        detailsURL: '#',
+        detailsURL: 'james_webb_telescope#',
         category: 'news',
         views: 83
     },
@@ -17,7 +17,7 @@ const initialArticles = [
         shortDescription: "În ultimul an a crescut foarte mult cantitatea de scăpări şi zvonuri legate de ochelarii AR şi casca VR de la Apple. Multiple prototipuri au fost testate iar compania din Cupertino, dar şi rivalii săi simt presiunea de a livra un dispozitiv care facilitează accesul la Metaverse. Google are de asemenea un proiect în această zonă, cunoscut ca 'Project Iris' şi detaliat mai jos.",
         longDescription: "",
         photoURL: "../images/google_iris.jpg",
-        detailsURL: '#',
+        detailsURL: 'google_iris',
         category: 'news',
         views: 95
     },
@@ -27,7 +27,7 @@ const initialArticles = [
         shortDescription: "Logitech lansează tastatura POP si mouse-ul POP, cele mai noi produse Studio Series care vin cu un plus de personalitate și culori vibrante, redefinind felul în care poate arăta spațiul tău de lucru.",
         longDescription: "",
         photoURL: "../images/logitech_pop.jpg",
-        detailsURL: '#',
+        detailsURL: 'logitech_pop',
         category: 'news',
         views: 60
     },
@@ -37,7 +37,7 @@ const initialArticles = [
         shortDescription: "Strategia Microsoft pe gaming este să crească numărul de oameni care plătesc abonament lunar la serviciul Game Pass comparat cu oficialii Microsoft cu un “Netflix for games” (Netflix pentru jocuri). Serviciul are în prezent aproximativ 25 de milioane de useri.",
         longDescription: "",
         photoURL: "../images/microsoft_activision.jpg",
-        detailsURL: '#',
+        detailsURL: 'microsoft_activision',
         category: 'news',
         views: 205
     }, {
