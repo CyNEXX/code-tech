@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import path from 'path';
 import articlesRoutes from '../routes/articles';
-
+import { connectToDatabase } from "../services/database.service";
 
 const DEV_PORT = 5000;
 
@@ -14,8 +14,9 @@ class Server {
         this.app = express();
         this.port = /* process.env.PORT ||  */DEV_PORT;
 
+        ;
         this.middlewares();
-        this.routes();
+        connectToDatabase().then(() => this.routes());
     }
 
     middlewares() {

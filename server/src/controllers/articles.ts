@@ -1,54 +1,92 @@
 import { RequestHandler } from "express";
+import { ObjectId } from "mongodb";
 import initialArticles from '../initialData/initial-articles';
+import { collections } from "../services/database.service";
 
-const TIMEOUT_DELAY = 2000; // ms
+const TIMEOUT_DELAY = 0; // ms
 
-export const getAllArticles: RequestHandler = (req, res, next) => {
+export const getAllArticles: RequestHandler = async (req, res, next) => {
   console.log('Getting all articles... :)');
-  if (initialArticles.length < 1) {
-    throw new Error('Could not find articles!');
-  }
-  setTimeout(() => { res.json(initialArticles); }, TIMEOUT_DELAY);
-  /* res.json(initialArticles); */
+
+  try {
+    await collections.articles!.find({}).toArray().then(articles => {
+      if (articles.length < 1) {
+        throw new Error('Could not find articles!');
+      }
+      res.json(articles);
+    });
+  } catch (e) { console.log('Error for articles'); res.sendStatus(503); }
+
 }
 
-export const getPopularArticles: RequestHandler = (req, res, next) => {
-  console.log('params', req.params);
+export const getPopularArticles: RequestHandler = async (req, res, next) => {
   const category = req.params.category;
-  console.log('category', category);
   console.log('Getting popular articles...of type', category, ' :)');
-  if (initialArticles.length < 1) {
-    throw new Error('Could not find popular articles!');
+
+  const query: any = {};
+  if (category !== 'any') {
+    query.category = category;
   }
-  setTimeout(() => { res.json(initialArticles.filter(a => (category == 'any') ? true : (a.category === category)).sort((a1, a2) => a2.views - a1.views).slice(0, 4)); }, TIMEOUT_DELAY);
-  /* res.json(initialArticles.sort((a1, a2) => a2.views - a1.views).slice(0, 4)); */
+
+  await collections.articles!.find(query).sort({ views: 1 }).limit(4).toArray().then(results => {
+    console.log('Popular!!!!')
+    if (results.length < 1) {
+      throw new Error('Could not find popular articles!');
+    }
+    res.json(results);
+  }).catch(e => { console.log('Error for popular'); res.sendStatus(503); });
+
+
 }
 
-export const getNews: RequestHandler = (req, res, next) => {
+export const getNews: RequestHandler = async (req, res, next) => {
   console.log('Getting news... :)');
-  if (initialArticles.length < 1) {
-    throw new Error('Could not find news!');
-  }
-  setTimeout(() => { res.json(initialArticles.filter(a => a.category === 'news')); }, TIMEOUT_DELAY);
+
+  try {
+    await collections.articles!.find({ category: 'news' }).toArray().then(results => {
+      if (results.length < 1) {
+        throw new Error('Could not find news!');
+      }
+      res.json(results);
+    });
+
+  } catch (e) { console.log('Error for news'); res.sendStatus(503); }
+
 }
 
-export const getCodes: RequestHandler = (req, res, next) => {
+export const getCodes: RequestHandler = async (req, res, next) => {
   console.log('Getting codes... :)');
-  if (initialArticles.length < 1) {
-    throw new Error('Could not find codes!');
-  }
-  setTimeout(() => { res.json(initialArticles.filter(a => a.category === 'codes')); }, TIMEOUT_DELAY);
-  /* res.json(initialArticles.filter(a => a.articleType === 2)); */
+
+  try {
+    await collections.articles!.find({ category: 'codes' }).toArray().then(results => {
+      if (results.length < 1) {
+        throw new Error('Could not find codes!');
+      }
+      res.json(results);
+    });
+
+  } catch (e) { console.log('Error for codes'); res.sendStatus(503); }
+
 }
 
-export const getArticle: RequestHandler = (req, res, next) => {
-  const id = +req.params.id;
+export const getArticle: RequestHandler = async (req, res, next) => {
+  const id = req.params.id;
   console.log('Getting article ID:', id);
-  if (initialArticles.length < 1) {
-    throw new Error('Could not find article!');
+
+  try {
+    await collections.articles!
+      .findOneAndUpdate({ '_id': new ObjectId(id) }, { $inc: { views: 1 } }, { returnDocument: 'after' })
+      .then(result => {
+
+        if (!result) {
+          throw new Error('Could not find article! with _id: ' + id);
+        }
+        res.json(result.value);
+      });
+
+  } catch (e) {
+    console.log('Error for id: ' + id);
+    console.log(e);
   }
-  setTimeout(() => { res.json(initialArticles.find(a => a._id == id)); }, TIMEOUT_DELAY);
-  /* res.json(initialArticles.find(a => a._id == id)); */
 }
 
-//getArticle, getNews, getCodes

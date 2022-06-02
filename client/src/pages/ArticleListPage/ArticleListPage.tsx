@@ -5,6 +5,7 @@ import ArticleList from '../../components/ArticleList/ArticleList';
 import ContentWrapper from '../../components/ContentWrapper/ContentWrapper';
 import { useGlobalContext } from '../../context/articleContext';
 import { ArticleCategories } from '../../models/ArticleCategories';
+import NoContent from '../../components/NoContent/NoContent';
 
 const ArticleListPage: React.FC<{}> = (props) => {
 
@@ -17,7 +18,8 @@ const ArticleListPage: React.FC<{}> = (props) => {
     const location = useLocation();
 
     useEffect(() => {
-        
+        console.log('Should run');
+
         let categoryFromUrl = location.pathname.split('/')[1];
         if (!categoryFromUrl) {
             categoryFromUrl = 'any';
@@ -25,9 +27,16 @@ const ArticleListPage: React.FC<{}> = (props) => {
 
         setWrappedElement(null);
         getArticlesFromAPI(categoryFromUrl)
-            .then((articleList: BasicArticle[]) => {
-                console.log(articleList);
-                setWrappedElement(<ArticleList articles={articleList} />);
+            .then((result) => {
+                console.log('R: ', result);
+                if (!result) {
+                    setWrappedElement(<NoContent message='No articles found'/>);
+                } else {
+                    const articleList = result as BasicArticle[];
+                    console.log(articleList);
+                    setWrappedElement(<ArticleList articles={articleList} />);
+                }
+
             })
             .catch(e => { console.log(e) });
     }

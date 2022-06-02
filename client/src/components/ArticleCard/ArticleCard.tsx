@@ -20,6 +20,7 @@ const ArticleCard: React.FC<ArticleProps> = (props) => {
 
     const onClickHandler = (event: React.MouseEvent) => {
         event.preventDefault();
+        console.log("CLick handler!!")
         navigate(`/article/${article._id}`);
     }
 
